@@ -1,12 +1,14 @@
 
 # This workflow will install Python dependencies, run tests and lint with a multiple versions of Python
-name: CloudFormation CLI PR CI
+name: CloudFormation CLI CI
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  release:
+    types: [ published ]
 
 jobs:
   build:
@@ -33,3 +35,10 @@ jobs:
         pre-commit run --all-files
         python setup.py sdist bdist_wheel
         twine check ./dist/*
+    - name: Publish distribution 📦 to Test PyPI (If triggered from release)
+      uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_API_KEY_CLOUDFORMATION_CLI }}
+          repository_url: https://test.pypi.org/legacy/
+      if: github.event_name = "release"
+
