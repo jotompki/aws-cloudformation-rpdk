@@ -37,7 +37,7 @@ jobs:
         twine check ./dist/*
     - name: Publish distribution 📦 to Test PyPI (If triggered from release)
       uses: pypa/gh-action-pypi-publish@master
-      if: github.event_name = "release"
+      if: github.event_name == "release"
       with:
         password: ${{ secrets.PYPI_API_KEY_CLOUDFORMATION_CLI }}
         repository_url: https://test.pypi.org/legacy/
