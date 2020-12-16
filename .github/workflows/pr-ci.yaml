@@ -24,7 +24,7 @@ jobs:
         python-version: ${{ matrix.python }}
     - name: Install dependencies
       run: |
-        pip install --upgrade pip 'attrs==19.2.0' -r requirements.txt
+        pip install --upgrade pip 'attrs==19.2.0' wheel -r requirements.txt
     - name: Install cli
       run: |
         pip install .
